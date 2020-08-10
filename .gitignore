@@ -1,3 +1,9 @@
+# Azure ML
+config.json
+outputs/
+_generated_score.py
+accidentdata/
+
 # History files
 .Rhistory
 .Rapp.history
