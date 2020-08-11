@@ -16,7 +16,7 @@ accident.endpoint <- "http://9dd3dd31-2b15-493d-b856-196f1bdd36d3.westus.azureco
 ui <- fluidPage(
   
   # Application title
-  titlePanel("Accident Fatality Probability Estimator v4"),
+  titlePanel("Accident Fatality Probability Estimator v5"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
