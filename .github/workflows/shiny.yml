@@ -17,20 +17,25 @@ jobs:
     deploy:
         name: Deploy to Shiny Server
         runs-on: ubuntu-latest
+
         steps:
-          - name: dig +short myip.opendns.com @resolver1.opendns.com
-            run: dig +short myip.opendns.com @resolver1.opendns.com
+
+        ###  If you need to open the SSH port temporarily on the Shiny Server, uncomment this section
+
+        #   - name: dig +short myip.opendns.com @resolver1.opendns.com
+        #     run: dig +short myip.opendns.com @resolver1.opendns.com
     
-          - name: Add NSG Rule
-            uses: venura9/manage-nsg@master
-            id: rule
-            with:
-              azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
-              rule-nsg-resource-group-name: rstudioconf
-              rule-nsg-name: shivyserver-nsg
+        #   - name: Add NSG Rule
+        #     uses: venura9/manage-nsg@master
+        #     id: rule
+        #     with:
+        #       azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+        #       rule-nsg-resource-group-name: ${{ secrets.SHINY_RG }}
+        #       rule-nsg-name: ${{ secrets.SHINY_NSG }}
+        #       rule-inbound-port: 22
     
-          - name: Print Created NSG Rule Name
-            run: echo "Rule Name ${{ steps.rule.outputs.rule_name }}"
+        #   - name: Print Created NSG Rule Name
+        #     run: echo "Rule Name ${{ steps.rule.outputs.rule_name }}"
     
           - uses: actions/checkout@master
 
@@ -40,15 +45,15 @@ jobs:
               host: ${{ secrets.SHINYHOST }}
               username: ${{ secrets.SHINYUSERNAME }}
               key: ${{ secrets.SHINYKEY }}
-              port: ${{ secrets.SHINYPORT }}
               source: "accident-app/app.R"
               target: "~"
 
-          - name: Remove NSG Rule
-            uses: venura9/manage-nsg@master
-            with: 
-              azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
-              rule-id-for-removal: ${{ steps.rule.outputs.rule_name }}
-              rule-nsg-resource-group-name: rstudioconf
-              rule-nsg-name: shivyserver-nsg
+        #  Re-close temporarily opened SSH port 
+        #   - name: Remove NSG Rule
+        #     uses: venura9/manage-nsg@master
+        #     with: 
+        #       azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+        #       rule-id-for-removal: ${{ steps.rule.outputs.rule_name }}
+        #       rule-nsg-resource-group-name: ${{ secrets.SHINY_RG }}
+        #       rule-nsg-name: ${{ secrets.SHINY_NSG }}
   

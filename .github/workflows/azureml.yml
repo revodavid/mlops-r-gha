@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Train and Deploy Model
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the main branch
@@ -13,21 +13,24 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  train:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
-
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Check Out Repository
+      id: checkout_repository
+      uses: actions/checkout@v2
+        
+    # Connect or Create the Azure Machine Learning Workspace
+    - name: Connect/Create Azure Machine Learning Workspace
+      id: aml_workspace
+      uses: Azure/aml-workspace@v1
+      with:
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    # Connect or Create a Compute Target in Azure Machine Learning
+    - name: Connect/Create Azure Machine Learning Compute Target
+      id: aml_compute_training
+      uses: Azure/aml-compute@v1
+      with:
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
