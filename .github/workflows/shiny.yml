@@ -1,0 +1,26 @@
+## Deploy contents of folder to Shiny Server VM
+
+name: Deploy to Shiny
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: copy files via ssh key
+              uses: appleboy/scp-action@master
+              with: 
+                host: ${{ secrets.SHINYHOST }}
+                username: ${{ secrets.SHINYUSERNAME }}
+                key: ${{ secrets.SHINYKEY }}
+                port: ${{ secrets.SHINYPORT }}
+                source: "accident-app/app.R"
+                target: "accident-app"

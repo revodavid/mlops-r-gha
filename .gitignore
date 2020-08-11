@@ -3,6 +3,7 @@ config.json
 outputs/
 _generated_score.py
 accidentdata/
+secrets.txt
 
 # History files
 .Rhistory
