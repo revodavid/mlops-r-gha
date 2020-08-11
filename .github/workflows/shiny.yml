@@ -18,13 +18,37 @@ jobs:
         name: Deploy to Shiny Server
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@master
-            - name: copy files via ssh key
-              uses: appleboy/scp-action@master
-              with: 
-                host: ${{ secrets.SHINYHOST }}
-                username: ${{ secrets.SHINYUSERNAME }}
-                key: ${{ secrets.SHINYKEY }}
-                port: ${{ secrets.SHINYPORT }}
-                source: "accident-app/app.R"
-                target: "~"
+          - name: dig +short myip.opendns.com @resolver1.opendns.com
+            run: dig +short myip.opendns.com @resolver1.opendns.com
+    
+          - name: Add NSG Rule
+            uses: venura9/manage-nsg@master
+            id: rule
+            with:
+              azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+              rule-nsg-resource-group-name: ManageNsg
+              rule-nsg-name: ManageNsg
+    
+          - name: Print Created NSG Rule Name
+            run: echo "Rule Name ${{ steps.rule.outputs.rule_name }}"
+    
+          - uses: actions/checkout@master
+
+          - name: copy files via ssh key
+            uses: appleboy/scp-action@master
+            with: 
+              host: ${{ secrets.SHINYHOST }}
+              username: ${{ secrets.SHINYUSERNAME }}
+              key: ${{ secrets.SHINYKEY }}
+              port: ${{ secrets.SHINYPORT }}
+              source: "accident-app/app.R"
+              target: "~"
+
+          - name: Remove NSG Rule
+            uses: venura9/manage-nsg@master
+            with:
+            azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+            rule-id-for-removal: ${{ steps.rule.outputs.rule_name }}
+            rule-nsg-resource-group-name: ManageNsg
+            rule-nsg-name: ManageNsg
+  
