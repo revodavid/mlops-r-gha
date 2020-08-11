@@ -23,4 +23,4 @@ jobs:
                 key: ${{ secrets.SHINYKEY }}
                 port: ${{ secrets.SHINYPORT }}
                 source: "accident-app/app.R"
-                target: "accident-app"
+                target: "~"
