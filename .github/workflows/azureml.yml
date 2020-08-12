@@ -41,15 +41,19 @@ jobs:
       with:
         r-version: '3.6.3' # The R version to download (if necessary) and use.
 
-    - name: Check R version
-      run: Rscript -e 'print(R.version)'
+    - name: Check OS version
+      run: uname -a
 
     - name: Install azuremlsdk
       run: |
+        options(repos=c(""))
         install.packages('remotes')
         writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         library(remotes)
-        remotes::install_github('https://github.com/Azure/azureml-sdk-for-r', build_vignettes = TRUE)
-        azuremlsdk::install_azureml()
+        remotes::install_github('https://github.com/Azure/azureml-sdk-for-r')
       shell: Rscript {0}
 
+    - name: Install Azure ML
+      run: |
+        azuremlsdk::install_azureml()
+      shell: Rscript {0}
