@@ -35,6 +35,14 @@ jobs:
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
+    # Connect to the Shiny VM to train the model
+    - name: Train model
+      uses: JimCronqvist/action-ssh@master
+      with:
+        hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
+        privateKey: ${{ secrets.SHINYKEY }}
+        command: ls -lah
+
     # Run R script to train model
     - name: Install R
       uses: r-lib/actions/setup-r@v1
