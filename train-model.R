@@ -1,13 +1,12 @@
 library(azuremlsdk)
-print(get_current_run())
-
 cat("Completed package load\n")
 
 library(jsonlite)
 AZURE_CREDENTIALS=Sys.getenv("AZURE_CREDENTIALS")
+if(nchar(AZURE_CREDENTIALS)==0) stop("No AZURE_CREDENTIALS")
 
 creds <- fromJSON(AZURE_CREDENTIALS)
-if(length(creds)==0) stop("Provide AZURE_CREDENTIALS secret.")
+if(length(creds)==0) stop("Malformed AZURE_CREDENTIALS")
 
 cat("gallery endpoint:")
 print(creds$galleryEndpointUrl)
