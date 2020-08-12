@@ -46,7 +46,7 @@ jobs:
 
     - name: Install azuremlsdk
       run: |
-        options(repos=c(""))
+        options(repos=c("https://packagemanager.rstudio.com/all/__linux__/bionic/latest"))
         install.packages('remotes')
         writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         library(remotes)
