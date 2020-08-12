@@ -61,9 +61,11 @@ jobs:
     - name: Rscript check
       run: Rscript test-script.R 
 
+    - name: conda init
+      run: conda init bash
+
     - name: Train model
       run: |
-        conda init bash
         conda activate r-reticulate
         Rscript train-model.R
 
