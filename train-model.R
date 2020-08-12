@@ -1,6 +1,10 @@
 library(azuremlsdk)
 
+cat("Completed package load\n")
+
 ws <- load_workspace_from_config()
+
+cat("Found workspace\n")
 
 ## TODO: Get compute cluster from prior step
 cluster_name <- "rcluster"
@@ -16,6 +20,7 @@ if (is.null(compute_target)) {
   wait_for_provisioning_completion(compute_target, show_output = TRUE)
 }
 
+cat("Found cluster\n")
 
 ds <- get_default_datastore(ws)
 target_path <- "accidentdata"
