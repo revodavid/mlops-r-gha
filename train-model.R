@@ -6,6 +6,8 @@ library(jsonlite)
 AZURE_CREDENTIALS=Sys.getenv("AZURE_CREDENTIALS")
 
 creds <- fromJSON(AZURE_CREDENTIALS)
+if(nchar(creds)==0) stop("Provide AZURE_CREDENTIALS secret.")
+
 cat("gallery endpoint:")
 print(creds$galleryEndpointUrl)
 
