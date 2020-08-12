@@ -36,8 +36,17 @@ jobs:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
     # Run R script to train model
-    - name: Train model
+    - name: Install R
       uses: r-lib/actions/setup-r@v1
       with:
         r-version: '3.6.3' # The R version to download (if necessary) and use.
-    - run: Rscript -e 'print("R.version")'
+
+    - name: Check R version
+      run: Rscript -e 'print(R.version)'
+
+    - name: Install dependencies
+      run: |
+        install.packages('remotes')
+        writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+      shell: Rscript {0}
+
