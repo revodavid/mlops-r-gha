@@ -57,3 +57,8 @@ jobs:
       run: |
         azuremlsdk::install_azureml()
       shell: Rscript {0}
+
+      ## TODO: Add data to datastore
+
+    - name: Train model
+      run: Rscript -e "train-model.R"
