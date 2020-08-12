@@ -56,8 +56,6 @@ jobs:
     - name: Install Azure ML
       run: |
         azuremlsdk::install_azureml()
-        library(azuremlsdk)
-        ws <- load_workspace_from_config()
       shell: Rscript {0}
 
     - name: Rscript check
@@ -74,7 +72,9 @@ jobs:
       ## TODO: Add data to datastore
 
     - name: Train model
-      run: Rscript train-model.R
+      run: |
+        conda activate r-reticulate
+        Rscript train-model.R
 
     - name: Register and deploy model
       run: Rscript deploy-model.R
