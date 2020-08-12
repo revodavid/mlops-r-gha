@@ -40,4 +40,4 @@ jobs:
       uses: r-lib/actions/setup-r@v1
       with:
         r-version: '3.6.3' # The R version to download (if necessary) and use.
-      run: Rscript -e 'print("R.version")'
+    - run: Rscript -e 'print("R.version")'
