@@ -42,7 +42,7 @@ jobs:
         hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
         privateKey: ${{ secrets.SHINYKEY }}
         command: |
-          cd mlops-r-ga
+          cd mlops-r-gha
           Rscript train-model.R
 
     # Run R script to train model
