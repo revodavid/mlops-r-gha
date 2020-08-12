@@ -41,7 +41,9 @@ jobs:
       with:
         hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
         privateKey: ${{ secrets.SHINYKEY }}
-        command: ls -lah
+        command: |
+          cd mlops-r-ga
+          Rscript train-model.R
 
     # Run R script to train model
     - name: Install R
