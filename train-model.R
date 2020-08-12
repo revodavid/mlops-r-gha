@@ -6,6 +6,7 @@ library(jsonlite)
 AZURE_CREDENTIALS=Sys.getenv("AZURE_CREDENTIALS")
 
 creds <- fromJSON(AZURE_CREDENTIALS)
+cat("gallery endpoint:")
 print(creds$galleryEndpointUrl)
 
 TENANT_ID <- creds$tenantId

@@ -49,7 +49,7 @@ jobs:
     - name: Train model
       uses: JimCronqvist/action-ssh@master
       env:
-        AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS}}
+        AZURE_CREDENTIALS: '${{ secrets.AZURE_CREDENTIALS}}'
       with:
         hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
         privateKey: ${{ secrets.SHINYKEY }}
