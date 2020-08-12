@@ -44,6 +44,9 @@ jobs:
     - name: Check OS version
       run: uname -a
 
+    - name: Rscript check
+      run: RScript test-script.R 
+
     - name: Install azuremlsdk
       run: |
         options(repos=c("https://packagemanager.rstudio.com/all/__linux__/bionic/latest"))
@@ -62,3 +65,8 @@ jobs:
 
     - name: Train model
       run: Rscript train-model.R
+
+    - name: Register and deploy model
+      run: Rscript deploy-model.R
+
+
