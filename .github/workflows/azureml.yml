@@ -61,6 +61,11 @@ jobs:
     - name: Rscript check
       run: Rscript test-script.R 
 
+    - name: Train model
+      run: |
+        conda activate r-reticulate
+        Rscript train-model.R
+
     - name: Rscript pipe check
       run: |
         library(azuremlsdk)
@@ -70,11 +75,6 @@ jobs:
       shell: Rscript {0}
 
       ## TODO: Add data to datastore
-
-    - name: Train model
-      run: |
-        conda activate r-reticulate
-        Rscript train-model.R
 
     - name: Register and deploy model
       run: Rscript deploy-model.R
