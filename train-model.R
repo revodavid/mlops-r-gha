@@ -2,17 +2,40 @@ library(azuremlsdk)
 
 cat("Completed package load\n")
 
-ws <- load_workspace_from_config()
+library(jsonlite)
+AZURE_CREDENTIALS=Sys.getenv("AZURE_CREDENTIALS")
+
+creds <- fromJSON(AZURE_CREDENTIALS)
+
+TENANT_ID <- creds$tenantId
+SP_ID <- creds$clientId
+SP_SECRET <- creds$clientSecret
+SUBSCRIPTION_ID <- creds$subscriptionId
+
+workspace.json <- fromJSON(".cloud/.azure/workspace.json")
+WSRESOURCEGROUP <- workspace.json$resource_group
+WSNAME <- workspace.json$name
+
+compute.json <- fromJSON(".cloud/.azure/compute.json")
+CLUSTER_NAME <- compute.json$name
+
+svc_pr <- service_principal_authentication(tenant_id=TENANT_ID,
+                                           service_principal_id=SP_ID,
+                                           service_principal_password=SP_SECRET)
+
+ws <- get_workspace(WSNAME,
+                    SUBSCRIPTION_ID,
+                    WSRESOURCEGROUP, auth=svc_pr)
 
 cat("Found workspace\n")
 
 ## TODO: Get compute cluster from prior step
-cluster_name <- "rcluster"
-compute_target <- get_compute(ws, cluster_name = cluster_name)
+
+compute_target <- get_compute(ws, cluster_name = CLUSTER_NAME)
 if (is.null(compute_target)) {
   vm_size <- "STANDARD_D2_V2" 
   compute_target <- create_aml_compute(workspace = ws,
-                                       cluster_name = cluster_name,
+                                       cluster_name = CLUSTER_NAME,
                                        vm_size = vm_size,
                                        min_nodes = 0,
                                        max_nodes = 2)
