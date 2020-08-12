@@ -35,6 +35,16 @@ jobs:
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
+    # SSH Connect test
+    - name: Connection test
+      uses: JimCronqvist/action-ssh@master
+      with:
+        hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
+        privateKey: ${{ secrets.SHINYKEY }}
+        command: |
+          cd mlops-r-gha
+          Rscript test-script.R
+
     # Connect to the Shiny VM to train the model
     - name: Train model
       uses: JimCronqvist/action-ssh@master
@@ -45,51 +55,14 @@ jobs:
           cd mlops-r-gha
           Rscript train-model.R
 
-    # Run R script to train model
-    - name: Install R
-      uses: r-lib/actions/setup-r@v1
+    ## TODO: Add data to datastore
+
+    # Connect to the Shiny VM to train the model
+    - name: Deploy model
+      uses: JimCronqvist/action-ssh@master
       with:
-        r-version: '3.6.3' # The R version to download (if necessary) and use.
-
-    - name: Check OS version
-      run: uname -a
-
-    - name: Install azuremlsdk
-      run: |
-        options(repos=c("https://packagemanager.rstudio.com/all/__linux__/bionic/latest"))
-        install.packages('remotes')
-        writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-        library(remotes)
-        remotes::install_github('https://github.com/Azure/azureml-sdk-for-r')
-      shell: Rscript {0}
-
-    - name: Install Azure ML
-      run: |
-        azuremlsdk::install_azureml()
-      shell: Rscript {0}
-
-    - name: Rscript check
-      run: Rscript test-script.R 
-
-    - name: conda init
-      run: conda init bash
-
-    - name: Train model
-      run: |
-        conda activate r-reticulate
-        Rscript train-model.R
-
-    - name: Rscript pipe check
-      run: |
-        library(azuremlsdk)
-        cat("Completed package load\n")
-        ws <- load_workspace_from_config()
-        cat("Found workspace\n")
-      shell: Rscript {0}
-
-      ## TODO: Add data to datastore
-
-    - name: Register and deploy model
-      run: Rscript deploy-model.R
-
-
+        hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
+        privateKey: ${{ secrets.SHINYKEY }}
+        command: |
+          cd mlops-r-gha
+          Rscript deploy-model.R
