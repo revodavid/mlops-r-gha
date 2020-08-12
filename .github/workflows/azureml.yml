@@ -39,7 +39,7 @@ jobs:
     - name: Connection test
       uses: JimCronqvist/action-ssh@master
       env:
-        SHINYHOST: 'test'
+        SHINYHOST: '${{ secrets.SHINYHOST }}'
       with:
         hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
         privateKey: ${{ secrets.SHINYKEY }}
@@ -58,6 +58,7 @@ jobs:
         privateKey: ${{ secrets.SHINYKEY }}
         command: |
           cd mlops-r-gha
+          export AZURE_CREDENTIALS
           Rscript train-model.R
 
     ## TODO: Add data to datastore
