@@ -34,3 +34,10 @@ jobs:
       uses: Azure/aml-compute@v1
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+
+    # Run R script to train model
+    - name: Train model
+      uses: r-lib/actions/setup-r@v1
+      with:
+        r-version: '3.6.3' # The R version to download (if necessary) and use.
+      run: Rscript -e 'print("R.version")'
