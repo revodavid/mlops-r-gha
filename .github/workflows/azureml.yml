@@ -63,6 +63,7 @@ jobs:
 
     - name: Train model
       run: |
+        conda init bash
         conda activate r-reticulate
         Rscript train-model.R
 
