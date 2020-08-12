@@ -61,6 +61,14 @@ jobs:
     - name: Rscript check
       run: Rscript test-script.R 
 
+    - name: Rscript pipe check
+      run: |
+        library(azuremlsdk)
+        cat("Completed package load\n")
+        ws <- load_workspace_from_config()
+        cat("Found workspace\n")
+      shell: Rscript {0}
+
       ## TODO: Add data to datastore
 
     - name: Train model
