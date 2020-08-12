@@ -56,6 +56,8 @@ jobs:
     - name: Install Azure ML
       run: |
         azuremlsdk::install_azureml()
+        library(azuremlsdk)
+        ws <- load_workspace_from_config()
       shell: Rscript {0}
 
     - name: Rscript check
