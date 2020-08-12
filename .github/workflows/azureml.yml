@@ -45,7 +45,7 @@ jobs:
       run: uname -a
 
     - name: Rscript check
-      run: RScript test-script.R 
+      run: Rscript test-script.R 
 
     - name: Install azuremlsdk
       run: |
