@@ -44,9 +44,6 @@ jobs:
     - name: Check OS version
       run: uname -a
 
-    - name: Rscript check
-      run: Rscript test-script.R 
-
     - name: Install azuremlsdk
       run: |
         options(repos=c("https://packagemanager.rstudio.com/all/__linux__/bionic/latest"))
@@ -60,6 +57,9 @@ jobs:
       run: |
         azuremlsdk::install_azureml()
       shell: Rscript {0}
+
+    - name: Rscript check
+      run: Rscript test-script.R 
 
       ## TODO: Add data to datastore
 
