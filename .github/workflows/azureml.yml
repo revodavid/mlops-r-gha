@@ -38,6 +38,8 @@ jobs:
     # SSH Connect test
     - name: Connection test
       uses: JimCronqvist/action-ssh@master
+      env:
+        SHINYHOST: 'test'
       with:
         hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
         privateKey: ${{ secrets.SHINYKEY }}
