@@ -65,3 +65,7 @@ aci_service <- deploy_model(ws,
 wait_for_deployment(aci_service, show_output = TRUE)
 
 cat("Model deployed.\n")
+
+## Save endpoint for file for use when run on Shiny server
+accident.endpoint <- get_webservice(ws,   "accidents-gha")$scoring_uri
+saveRDS(accident.endpoint, "~/endpoint.Rd")
