@@ -10,7 +10,7 @@
 library(shiny)
 library(httr)
 
-accident.endpoint <- readRDS("~/endpoint.Rd") # file placed by deploy-model.R
+accident.endpoint <- readRDS("/home/azureuser/endpoint.Rd") # file placed by deploy-model.R
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
