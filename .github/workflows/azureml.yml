@@ -35,19 +35,6 @@ jobs:
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # SSH Connect test
-    - name: Connection test
-      uses: JimCronqvist/action-ssh@master
-      env:
-        SHINYHOST: '${{ secrets.SHINYHOST }}'
-      with:
-        hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
-        privateKey: ${{ secrets.SHINYKEY }}
-        command: |
-          cd mlops-r-gha
-          export SHINYHOST
-          Rscript test-script.R
-
     # Connect to the Shiny VM to train the model
     - name: Train model
       uses: JimCronqvist/action-ssh@master
@@ -63,12 +50,15 @@ jobs:
 
     ## TODO: Add data to datastore
 
-    # Connect to the Shiny VM to train the model
+    # Connect to the Shiny VM to register and deploy the model
     - name: Deploy model
       uses: JimCronqvist/action-ssh@master
+      env:
+        AZURE_CREDENTIALS: '${{ secrets.AZURE_CREDENTIALS}}'
       with:
         hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
         privateKey: ${{ secrets.SHINYKEY }}
         command: |
           cd mlops-r-gha
+          export AZURE_CREDENTIALS
           Rscript deploy-model.R
