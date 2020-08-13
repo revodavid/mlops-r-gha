@@ -7,9 +7,13 @@ name: Train and Deploy Model
 on:
   push:
     branches: [ main ]
+    paths-ignore: 
+    - 'accident-app/**'
   pull_request:
     branches: [ main ]
-
+    paths-ignore: 
+    - 'accident-app/**'
+  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
