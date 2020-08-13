@@ -16,7 +16,7 @@ on:
 
 jobs:
 
-    deploy:
+    quickdeploy:
         name: Quick Deploy to Shiny Server
         runs-on: ubuntu-latest
 
