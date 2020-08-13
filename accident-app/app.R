@@ -10,6 +10,11 @@
 library(shiny)
 library(httr)
 
+## Replace this with the endpoint for your published model.
+## You can get this from the "Endpoints" section in ml.azure.com
+## or via the R SDK with get_webservice(ws, "accident-pred")$scoring_uri
+## If you don't specify a value here, the global "accident.endpoint" object will be used
+    
 accident.endpoint <- readRDS("/home/azureuser/endpoint.Rd") # file placed by deploy-model.R
 
 # Define UI for application that draws a histogram
@@ -73,7 +78,7 @@ server <- function(input, output) {
   )
   
   pred <- reactive({
-    
+
     newdata$yearVeh <- input$yearVeh
     newdata$ageOFocc <- input$age
     newdata$dvcat <- input$dvcat
@@ -82,13 +87,6 @@ server <- function(input, output) {
     newdata$sex <- input$sex
     newdata$airbag <- input$airbag
     newdata$occRole <- input$occRole
-    
-    ## Replace this with the endpoint for your published model.
-    ## You can get this from the "Endpoints" section in ml.azure.com
-    ## or via the R SDK with get_webservice(ws, "accident-pred")$scoring_uri
-    ## If you don't specify a value here, the global "accident.endpoint" object will be used
-    
-    #accident.endpoint <- ""
     
     v <- POST(accident.endpoint, body=newdata, encode="json")
     content(v)[[1]]*100
@@ -99,7 +97,7 @@ server <- function(input, output) {
   output$barchart <- renderPlot({
     p <- pred()
     pp <- formatC(p, format="f", digits=2, width=5)
-    barplot(p, ylim=c(0,100), ylab="Probability (%)", col="#0000AA", names.arg=pp, cex.names=2.5)
+    barplot(p, ylim=c(0,100), ylab="Probability (%)", col="#AA0000", names.arg=pp, cex.names=2.5)
   })
 }
 
