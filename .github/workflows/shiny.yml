@@ -4,8 +4,12 @@ name: Deploy to Shiny
 
 on:
   push:
+    paths:
+    - 'accident-app/**' 
     branches: [ main ]
   pull_request:
+    paths:
+        - 'accident-app/**' 
     branches: [ main ]
 
 jobs:
@@ -13,7 +17,6 @@ jobs:
     deploy:
         name: Deploy to Shiny Server
         runs-on: ubuntu-latest
-        needs: train
 
         steps:
 
