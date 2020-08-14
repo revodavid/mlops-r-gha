@@ -1,0 +1,33 @@
+# Upload data -- only needs to be rerun once
+
+name: Upload data
+
+# Runs if data file modified
+on:
+  push:
+    branches: [ main ]
+    paths: 
+    - 'model/nassCDS.csv'
+    - 'model/data.R'
+  pull_request:
+    branches: [ main ]
+    paths: 
+    - 'model/**'
+    - '.cloud/.azure/**'
+  
+jobs:
+  name: data
+    runs-on: ubuntu-latest
+    steps:
+    # Upload data file
+    - name: Upload data
+      uses: JimCronqvist/action-ssh@master
+      env:
+        AZURE_CREDENTIALS: '${{ secrets.AZURE_CREDENTIALS}}'
+      with:
+        hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
+        privateKey: ${{ secrets.SHINYKEY }}
+        command: |
+          cd mlops-r-gha/model
+          export AZURE_CREDENTIALS
+          Rscript data.R
