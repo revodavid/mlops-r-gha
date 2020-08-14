@@ -19,7 +19,16 @@ MLOPS with R: An end-to-end process for building machine learning applications: 
 
 Links and other useful resources from the talk.
 
-Azure Machine Learning service: [Documentation](https://docs.microsoft.com/azure/machine-learning/overview-what-is-azure-ml?WT.mc_id=mlopsr-github-davidsmi)
+Azure Machine Learning service:  
+* [Documentation](https://docs.microsoft.com/azure/machine-learning/overview-what-is-azure-ml?WT.mc_id=aiml-2093-davidsmi)
+
+azuremlsdk R package: 
+
+* [CRAN](https://cran.r-project.org/package=azuremlsdk)
+* [GitHub Repository](https://github.com/azure/azureml-sdk-for-r)
+* [Documentation](https://azure.github.io/azureml-sdk-for-r/reference/index.html). 
+* [Tutorial: Create a logistic regression model in R with Azure Machine Learning](https://docs.microsoft.com/azure/machine-learning/tutorial-1st-r-experiment?WT.mc_id=aiml-2093-davidsmi)
+
 
 GitHub Actions:
 * [Documentation](https://docs.github.com/en/actions) 
@@ -29,19 +38,9 @@ GitHub Actions:
 
 Visual Studio Code:
 
-* [Remote Development](https://code.visualstudio.com/docs/remote/remote-overview)
-* [Remote Containers](https://code.visualstudio.com/docs/remote/create-dev-container)
-* [R extension](https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.r)
-
-azuremlsdk R package: 
-
-* [CRAN](https://cran.r-project.org/package=azuremlsdk)
-* [GitHub Repository](https://github.com/azure/azureml-sdk-for-r)
-* [Documentation](https://azure.github.io/azureml-sdk-for-r/reference/index.html). 
-
-* [Tutorial: Create a logistic regression model in R with Azure Machine Learning](https://docs.microsoft.com/azure/machine-learning/tutorial-1st-r-experiment?WT.mc_id=mlopsr-github-davidsmi)
-
-* [A Deeper Dive into Experiments with R](azuremlsdk-vignettes/experiments-with-R.pdf) (this is also provided as a vignette in the `azuremlsdk` package)
+* [Remote Development](https://code.visualstudio.com/docs/remote/remote-overview?WT.mc_id=aiml-2093-davidsmi)
+* [Remote Containers](https://code.visualstudio.com/docs/remote/create-dev-container?WT.mc_id=aiml-2093-davidsmi)
+* [R extension](https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.r?WT.mc_id=aiml-2093-davidsmi)
 
 Free azure credits: [register here](https://aka.ms/AML-NYR). (Credit card required, but won't be charged until you remove limits to allow it.)
 
