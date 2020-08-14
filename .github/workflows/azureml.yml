@@ -6,12 +6,12 @@ name: Train and Deploy Model
 on:
   push:
     branches: [ main ]
-    paths-ignore: 
-    - 'accident-app/**'
+    paths: 
+    - 'model/**'
   pull_request:
     branches: [ main ]
-    paths-ignore: 
-    - 'accident-app/**'
+    paths: 
+    - 'model/**'
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -38,6 +38,18 @@ jobs:
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
+    # Update code on server. This also updates the Shiny app in the app/ folder
+    - name: Pull source
+      uses: JimCronqvist/action-ssh@master
+      env:
+        AZURE_CREDENTIALS: '${{ secrets.AZURE_CREDENTIALS}}'
+      with:
+        hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
+        privateKey: ${{ secrets.SHINYKEY }}
+        command: |
+          cd mlops-r-gha
+          git pull
+
     # Connect to the Shiny VM to train the model
     - name: Train model
       uses: JimCronqvist/action-ssh@master
@@ -47,7 +59,7 @@ jobs:
         hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
         privateKey: ${{ secrets.SHINYKEY }}
         command: |
-          cd mlops-r-gha
+          cd mlops-r-gha/model
           export AZURE_CREDENTIALS
           Rscript train-model.R
 
@@ -62,51 +74,6 @@ jobs:
         hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
         privateKey: ${{ secrets.SHINYKEY }}
         command: |
-          cd mlops-r-gha
+          cd mlops-r-gha/model
           export AZURE_CREDENTIALS
           Rscript deploy-model.R
-
-  deploy:
-    name: Deploy to Shiny Server
-    runs-on: ubuntu-latest
-    needs: train
-
-    steps:
-
-    ###  If you need to open the SSH port temporarily on the Shiny Server, uncomment this section
-
-    #   - name: dig +short myip.opendns.com @resolver1.opendns.com
-    #     run: dig +short myip.opendns.com @resolver1.opendns.com
-
-    #   - name: Add NSG Rule
-    #     uses: venura9/manage-nsg@master
-    #     id: rule
-    #     with:
-    #       azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
-    #       rule-nsg-resource-group-name: ${{ secrets.SHINY_RG }}
-    #       rule-nsg-name: ${{ secrets.SHINY_NSG }}
-    #       rule-inbound-port: 22
-
-    #   - name: Print Created NSG Rule Name
-    #     run: echo "Rule Name ${{ steps.rule.outputs.rule_name }}"
-
-      - uses: actions/checkout@master
-
-      - name: copy files via ssh key
-        uses: appleboy/scp-action@master
-        with: 
-          host: ${{ secrets.SHINYHOST }}
-          username: ${{ secrets.SHINYUSERNAME }}
-          key: ${{ secrets.SHINYKEY }}
-          source: "accident-app/app.R"
-          target: "~"
-
-    #  Re-close temporarily opened SSH port 
-    #   - name: Remove NSG Rule
-    #     uses: venura9/manage-nsg@master
-    #     with: 
-    #       azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
-    #       rule-id-for-removal: ${{ steps.rule.outputs.rule_name }}
-    #       rule-nsg-resource-group-name: ${{ secrets.SHINY_RG }}
-    #       rule-nsg-name: ${{ secrets.SHINY_NSG }}
-    

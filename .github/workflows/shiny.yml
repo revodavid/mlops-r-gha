@@ -1,4 +1,4 @@
-## Deploy contents of folder to Shiny Server VM
+## Deploy contents of app folder to Shiny Server VM
 
 name: Quick Deploy to Shiny
 
