@@ -67,7 +67,7 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   newdata <- data.frame( # valid values shown below
-    dvcat="10-24",        # "1-9km/h" "10-24"   "25-39"   "40-54"   "55+"  
+    dvcat="55+",        # "1-9km/h" "10-24"   "25-39"   "40-54"   "55+"  
     seatbelt="none",      # "none"   "belted"  
     frontal="frontal",    # "notfrontal" "frontal"
     sex="f",              # "f" "m"
@@ -97,7 +97,7 @@ server <- function(input, output) {
   output$barchart <- renderPlot({
     p <- pred()
     pp <- formatC(p, format="f", digits=2, width=5)
-    barplot(p, ylim=c(0,100), ylab="Probability (%)", col="#AA00AA", names.arg=pp, cex.names=2.5)
+    barplot(p, ylim=c(0,100), ylab="Probability (%)", col="#0000AA", names.arg=pp, cex.names=2.5)
   })
 }
 
