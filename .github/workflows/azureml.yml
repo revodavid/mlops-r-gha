@@ -8,10 +8,12 @@ on:
     branches: [ main ]
     paths: 
     - 'model/**'
+    - '.cloud/.azure/**'
   pull_request:
     branches: [ main ]
     paths: 
     - 'model/**'
+    - '.cloud/.azure/**'
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
