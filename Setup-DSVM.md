@@ -31,7 +31,7 @@ NOTE: Using the DSVM is not a requirement, it's just convenient because many of 
 touch .hushlogin
 ```
 
-9. Install shiny-server. [Download for Ubuntu here](https://rstudio.com/products/shiny/download-server/ubuntu/). Visit the default Shiny homepage at http://SHINYSERVERIP:3838/
+9. Install shiny-server: [Download for Ubuntu here](https://rstudio.com/products/shiny/download-server/ubuntu/). [Start the Shiny server](https://docs.rstudio.com/shiny-server/#stopping-and-starting). Visit the default Shiny homepage at http://SHINYSERVERIP:3838/
 
 1. Replace /etc/shiny-server/shiny-server.conf with the file in this repository. This configures Shiny to deliver a single application from the "mlops-r-gha/accident-app" folder, and we can update files here via the configured SSH.
 

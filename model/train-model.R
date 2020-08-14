@@ -8,9 +8,6 @@ if(nchar(AZURE_CREDENTIALS)==0) stop("No AZURE_CREDENTIALS")
 creds <- fromJSON(AZURE_CREDENTIALS)
 if(length(creds)==0) stop("Malformed AZURE_CREDENTIALS")
 
-cat("gallery endpoint:")
-print(creds$galleryEndpointUrl)
-
 TENANT_ID <- creds$tenantId
 SP_ID <- creds$clientId
 SP_SECRET <- creds$clientSecret
@@ -32,8 +29,6 @@ ws <- get_workspace(WSNAME,
                     WSRESOURCEGROUP, auth=svc_pr)
 
 cat("Found workspace\n")
-
-## TODO: Get compute cluster from prior step
 
 compute_target <- get_compute(ws, cluster_name = CLUSTER_NAME)
 if (is.null(compute_target)) {

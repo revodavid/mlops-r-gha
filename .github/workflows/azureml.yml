@@ -17,8 +17,8 @@ on:
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # Train model in Azure ML
-  train:
+  # Connect to Azure ML workspace, create if needed
+  setup:
     runs-on: ubuntu-latest
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -40,6 +40,10 @@ jobs:
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
+  train:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
     # Update code on server. This also updates the Shiny app in the app/ folder
     - name: Pull source on VM
       uses: JimCronqvist/action-ssh@master
@@ -51,6 +55,19 @@ jobs:
         command: |
           cd mlops-r-gha
           git pull
+
+    # Upload data file
+    - name: Upload data
+      uses: JimCronqvist/action-ssh@master
+      env:
+        AZURE_CREDENTIALS: '${{ secrets.AZURE_CREDENTIALS}}'
+      with:
+        hosts: ${{ secrets.SHINYUSERNAME }}@${{ secrets.SHINYHOST }}
+        privateKey: ${{ secrets.SHINYKEY }}
+        command: |
+          cd mlops-r-gha/model
+          export AZURE_CREDENTIALS
+          Rscript data.R
 
     # Connect to the Shiny VM to train the model
     - name: Train model
@@ -64,8 +81,6 @@ jobs:
           cd mlops-r-gha/model
           export AZURE_CREDENTIALS
           Rscript train-model.R
-
-    ## TODO: Add data to datastore
 
     # Connect to the Shiny VM to register and deploy the model
     - name: Deploy model

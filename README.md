@@ -21,6 +21,7 @@ Links and other useful resources from the talk.
 
 Azure Machine Learning service:  
 * [Documentation](https://docs.microsoft.com/azure/machine-learning/overview-what-is-azure-ml?WT.mc_id=aiml-2093-davidsmi)
+* Free azure credits: [register here](https://aka.ms/AML-NYR). (Credit card required, but won't be charged until you remove limits to allow it.)
 
 azuremlsdk R package: 
 
@@ -28,7 +29,6 @@ azuremlsdk R package:
 * [GitHub Repository](https://github.com/azure/azureml-sdk-for-r)
 * [Documentation](https://azure.github.io/azureml-sdk-for-r/reference/index.html). 
 * [Tutorial: Create a logistic regression model in R with Azure Machine Learning](https://docs.microsoft.com/azure/machine-learning/tutorial-1st-r-experiment?WT.mc_id=aiml-2093-davidsmi)
-
 
 GitHub Actions:
 * [Documentation](https://docs.github.com/en/actions) 
@@ -42,7 +42,12 @@ Visual Studio Code:
 * [Remote Containers](https://code.visualstudio.com/docs/remote/create-dev-container?WT.mc_id=aiml-2093-davidsmi)
 * [R extension](https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.r?WT.mc_id=aiml-2093-davidsmi)
 
-Free azure credits: [register here](https://aka.ms/AML-NYR). (Credit card required, but won't be charged until you remove limits to allow it.)
+Data file `nassCDS.csv`:
+
+* The app uses data from the US [National Highway Traffic Safety Administration](https://cdan.nhtsa.gov/tsftables/tsfar.htm) 
+(with thanks to [Mary C. Meyer and Tremika Finney](https://www.stat.colostate.edu/~meyer/airbags.htm)).
+This dataset includes data from over 25,000 car crashes in the US, with variables you can use to predict the likelihood of a fatality. 
+
 
 ## Related Presentations
 
