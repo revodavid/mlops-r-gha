@@ -21,7 +21,7 @@ accident.endpoint <- readRDS("/home/azureuser/endpoint.Rd") # file placed by dep
 ui <- fluidPage(
   
   # Application title
-  titlePanel("Accident Fatality Probability Estimator v2"),
+  titlePanel("Accident Fatality Probability Estimator"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
@@ -97,7 +97,7 @@ server <- function(input, output) {
   output$barchart <- renderPlot({
     p <- pred()
     pp <- formatC(p, format="f", digits=2, width=5)
-    barplot(p, ylim=c(0,100), ylab="Probability (%)", col="#0000AA", names.arg=pp, cex.names=2.5)
+    barplot(p, ylim=c(0,100), ylab="Probability (%)", col="#AA0000", names.arg=pp, cex.names=2.5)
   })
 }
 
