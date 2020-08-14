@@ -13,7 +13,7 @@ As predictive models and machine learning become key components of production ap
 ## Presentations (Slides)
 
 Aug 2020: New York R Conference (online).  
-MLOPS with R: An end-to-end process for building machine learning applications: [slides (PPTx)]() | [slides (PDF)](slides.pdf) | [Video Recording]() (forthcoming) 
+MLOPS with R: An end-to-end process for building machine learning applications: [slides (PDF)](slides.pdf) | [Video Recording]() (forthcoming) 
 
 ## Resources
 
