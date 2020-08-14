@@ -39,7 +39,7 @@ jobs:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
     # Update code on server. This also updates the Shiny app in the app/ folder
-    - name: Pull source
+    - name: Pull source on VM
       uses: JimCronqvist/action-ssh@master
       env:
         AZURE_CREDENTIALS: '${{ secrets.AZURE_CREDENTIALS}}'
