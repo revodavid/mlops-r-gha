@@ -10,3 +10,15 @@ I plan to automate this process in the future.
 
 ## Deployment Process
 
+1. Deploy Azure DSVM as "shinyserver". Use "azureuser" for the default account. Instructions: TODO
+
+2. Enable SSH access for "azureuser" account.
+
+3. SSH to shinyserver.
+
+4. (OPTIONAL) Suppress login banner. This makes the Actions logs easier to read.
+```bash
+touch .hushlogin
+```
+
+5. Open port 3838 on shinyserver by adding a rule to the network security group. Instructions: TODO
