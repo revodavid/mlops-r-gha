@@ -12,11 +12,11 @@ on:
   pull_request:
     branches: [ main ]
     paths: 
-    - 'model/**'
-    - '.cloud/.azure/**'
-  
+    - 'model/nassCDS.csv'
+    - 'model/data.R'
+      
 jobs:
-  name: data
+  data:
     runs-on: ubuntu-latest
     steps:
     # Upload data file
