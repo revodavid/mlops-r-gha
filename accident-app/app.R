@@ -21,7 +21,7 @@ accident.endpoint <- readRDS("/home/azureuser/endpoint.Rd") # file placed by dep
 ui <- fluidPage(
   
   # Application title
-  titlePanel("Accident Fatality Probability Estimator"),
+  titlePanel("Accident Fatality Probability Estimator v2"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
