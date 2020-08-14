@@ -12,11 +12,11 @@ SP_ID <- creds$clientId
 SP_SECRET <- creds$clientSecret
 SUBSCRIPTION_ID <- creds$subscriptionId
 
-workspace.json <- fromJSON(".cloud/.azure/workspace.json")
+workspace.json <- fromJSON("../.cloud/.azure/workspace.json")
 WSRESOURCEGROUP <- workspace.json$resource_group
 WSNAME <- workspace.json$name
 
-register.json <- fromJSON(".cloud/.azure/registermodel.json")
+register.json <- fromJSON("../.cloud/.azure/registermodel.json")
 MODEL_FILE_NAME <- register.json$model_file_name ## TODO: Use this
 WEBSERVICE_NAME <- register.json$webservice_name ## TODO: Use this
 

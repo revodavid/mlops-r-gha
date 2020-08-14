@@ -16,11 +16,11 @@ SP_ID <- creds$clientId
 SP_SECRET <- creds$clientSecret
 SUBSCRIPTION_ID <- creds$subscriptionId
 
-workspace.json <- fromJSON(".cloud/.azure/workspace.json")
+workspace.json <- fromJSON("../.cloud/.azure/workspace.json")
 WSRESOURCEGROUP <- workspace.json$resource_group
 WSNAME <- workspace.json$name
 
-compute.json <- fromJSON(".cloud/.azure/compute.json")
+compute.json <- fromJSON("../.cloud/.azure/compute.json")
 CLUSTER_NAME <- compute.json$name
 
 svc_pr <- service_principal_authentication(tenant_id=TENANT_ID,
