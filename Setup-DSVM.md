@@ -22,7 +22,11 @@ NOTE: Using the DSVM is not a requirement, it's just convenient because many of 
 
 1. Open port 3838 on shinyserver by adding a rule to the network security group that was created when you set up the DSVM. Also verify that Port 22 (SSH) is not blocked by the rules. [Detailed Instructions](https://docs.microsoft.com/azure/virtual-network/manage-network-security-group?WT.mc_id=aiml-2093-davidsmi). 
 
-1. Add the SHINYKEY secret to your forked repo in GitHub with the private SSH key needed to access shinyserver. Also add SHINYHOST with the SHINYSERVERIP address, set SHINYUSERNAME to `azureuser`, and SHINYPORT to `3838`.
+1. Add secrets to your forked repo in GitHub under Setting >> secrets with the private SSH key needed to access shinyserver, the SHINYSERVERIP address, user name, and port. The new secret name should be the ALL CAPS name and the value of the secret should be as described:
+   - For SHINYKEY, paste in the entire contents of your SSH private key file for the shinyserver VM deployed in step 4.
+   - For SHINYHOST, paste in the IP address of the shinyserver VM (in the format AAA.AAA.AAA.AAA).
+   - For SHINYUSERNAME, set to `azureuser`
+   - For SHINYPORT, set to `3838`
 
 1. SSH to shinyserver: `ssh azureuser@SHINYSERVERIP`
 
