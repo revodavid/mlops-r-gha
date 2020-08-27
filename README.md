@@ -40,7 +40,7 @@ Visual Studio Code:
 
 * [Remote Development](https://code.visualstudio.com/docs/remote/remote-overview?WT.mc_id=aiml-2093-davidsmi)
 * [Remote Containers](https://code.visualstudio.com/docs/remote/create-dev-container?WT.mc_id=aiml-2093-davidsmi)
-* [R extension](https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.r?WT.mc_id=aiml-2093-davidsmi)
+* [R extension](https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.r)
 
 Data file `nassCDS.csv`:
 
