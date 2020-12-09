@@ -1,5 +1,6 @@
 # Azure ML
 config.json
+model/outputs
 outputs/
 _generated_score.py
 accidentdata/
