@@ -97,7 +97,7 @@ server <- function(input, output) {
   output$barchart <- renderPlot({
     p <- pred()
     pp <- formatC(p, format="f", digits=2, width=5)
-    barplot(p, ylim=c(0,100), ylab="Probability (%)", col="#0000aa", names.arg=pp, cex.names=2.5)
+    barplot(p, ylim=c(0,100), ylab="Probability (%)", col="#aa0077", names.arg=pp, cex.names=2.5)
   })
 }
 
